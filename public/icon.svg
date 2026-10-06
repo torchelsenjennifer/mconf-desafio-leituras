@@ -1,3 +1,6 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="red"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Biblioteca Coletiva">
+  <rect width="512" height="512" rx="108" fill="#203d36"/>
+  <path d="M256 150c-38-29-89-38-142-20v196c53-18 104-9 142 20 38-29 89-38 142-20V130c-53-18-104-9-142 20Z" fill="#f6f1e6"/>
+  <path d="M256 150v196M142 176c38-9 72-3 97 14M142 222c38-9 72-3 97 14M142 268c38-9 72-3 97 14M370 176c-38-9-72-3-97 14M370 222c-38-9-72-3-97 14M370 268c-38-9-72-3-97 14" fill="none" stroke="#203d36" stroke-linecap="round" stroke-width="13"/>
+  <path d="M256 346c-38-29-89-38-142-20M256 346c38-29 89-38 142-20" fill="none" stroke="#d8b46b" stroke-linecap="round" stroke-width="12"/>
 </svg>

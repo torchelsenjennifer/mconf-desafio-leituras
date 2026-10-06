@@ -1,0 +1,32 @@
+.home-nav { align-items: center; gap: 10px; }
+.home-login, .home-signup { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; font: 700 13px monospace; text-decoration: none; transition: transform .18s, background .18s, border-color .18s; }
+.home-login { border: 1px solid #9cac9f; color: #315d52; background: transparent; }
+.home-login:hover { border-color: #315d52; background: #e6eee4; transform: translateY(-1px); }
+.home-signup { border: 1px solid #203d36; color: #fff; background: #203d36; box-shadow: 4px 4px 0 #c8d6c3; }
+.home-signup:hover { background: #315d52; border-color: #315d52; transform: translate(-1px, -1px); }
+.home-notice, .home-alert { margin: 8px 0 0; padding: 12px 15px; border-left: 4px solid #397362; background: #e6efe3; color: #254b40; font-size: 13px; font-weight: 700; }
+.home-alert { border-color: #af4733; background: #fff0ed; color: #873824; }
+.signup-overlay { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(18, 42, 35, .58); backdrop-filter: blur(3px); }
+.signup-modal { position: relative; width: min(100%, 440px); padding: 38px; background: #fffdf8; box-shadow: 0 24px 70px rgba(10, 29, 24, .34); }
+.signup-kicker { margin: 0 0 8px; color: #a66a25; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.signup-modal h2 { margin: 0; color: #203d36; font: 700 38px serif; }
+.signup-modal > p:not(.signup-kicker) { margin: 8px 0 24px; color: #66766e; font-size: 14px; }
+.signup-success { display: grid; gap: 8px; margin-top: 22px; padding: 18px; border-left: 4px solid #397362; background: #e6efe3; color: #254b40; font-size: 14px; line-height: 1.45; }
+.signup-success strong { font: 700 22px serif; }
+.signup-close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; padding: 0; background: transparent; color: #486259; font: 400 28px/1 sans-serif; }
+.signup-modal form { display: grid; gap: 15px; }
+.signup-modal label { display: grid; gap: 6px; color: #29463d; font-size: 13px; font-weight: 800; }
+.signup-modal input { width: 100%; border: 1px solid #cbd6cc; padding: 12px; background: #fff; color: #20332f; font: 14px monospace; outline: none; }
+.signup-modal input:focus { border-color: #356a5a; box-shadow: 0 0 0 3px rgba(53, 106, 90, .13); }
+.signup-modal form small { margin-top: -10px; color: #aa412e; }
+.signup-modal form button[type=submit] { margin-top: 5px; background: #1e5145; }
+.signup-modal form button[type=submit]:hover { background: #153d34; }
+.login-modal form button[type=submit] { background: #315d52; }
+.modal-switch { margin: 20px 0 0; color: #66766e; font-size: 13px; text-align: center; }
+.modal-switch button { padding: 0; background: transparent; color: #1e5145; font: 800 13px monospace; text-decoration: underline; }
+
+@media (max-width: 500px) {
+  .home-nav { gap: 7px; }
+  .home-login, .home-signup { min-height: 34px; padding: 0 9px; font-size: 11px; }
+  .signup-modal { padding: 32px 24px; }
+}

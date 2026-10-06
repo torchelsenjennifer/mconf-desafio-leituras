@@ -1,0 +1,22 @@
+.grid .book { display: grid; grid-template-columns: 96px minmax(0, 1fr); min-height: 196px; overflow: hidden; border: 1px solid #e1e3db; box-shadow: 0 8px 22px rgba(32, 51, 47, .07); transition: transform .18s, box-shadow .18s; }
+.grid .book:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(32, 51, 47, .13); }
+.grid .book-cover { display: flex; align-items: center; justify-content: center; padding: 10px; background: #e5e8df; }
+.grid .book-cover img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.grid .book-cover span { color: #708077; font: 700 13px serif; text-align: center; }
+.grid .book-content { display: flex; min-width: 0; flex-direction: column; padding: 16px 12px 13px; }
+.grid .book-content > small:first-child { color: #718077; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.grid .book h2 { margin: 7px 0 4px; font-size: 20px; line-height: 1.12; overflow-wrap: anywhere; }
+.grid .book-content > p { margin: 0 0 14px; color: #4e625b; font-size: 14px; }
+.grid .book-owner { margin-top: auto; color: #79867f; font-size: 11px; }
+.grid .book-actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 6px; margin-top: 13px; }
+.grid .book-actions a, .grid .book-actions button { display: inline-flex; align-items: center; justify-content: center; border: 1px solid #bfcac0; background: transparent; color: #315d52; padding: 5px 7px; font: 700 10px monospace; text-decoration: none; cursor: pointer; }
+.grid .book-actions a:hover, .grid .book-actions button:hover { border-color: #315d52; background: #eef3ed; }
+.grid .book-actions button { color: #a34332; border-color: #dcc1ba; }
+.grid .book-actions button:hover { border-color: #a34332; background: #fff2ef; }
+
+@media (max-width: 520px) {
+  .grid .book { grid-template-columns: 94px minmax(0, 1fr); min-height: 170px; }
+  .grid .book-cover { padding: 7px; }
+  .grid .book-content { padding: 14px; }
+  .grid .book h2 { font-size: 18px; }
+}
