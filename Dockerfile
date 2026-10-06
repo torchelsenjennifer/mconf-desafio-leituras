@@ -24,10 +24,19 @@ RUN apt-get update -qq && \
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development" \
+    BUNDLE_WITHOUT="" \
     LD_PRELOAD="/usr/local/lib/libjemalloc.so"
 
 # Throw-away build stage to reduce size of final image
+FROM node:22-slim AS frontend
+WORKDIR /rails
+COPY package.json ./
+RUN npm install
+COPY app/frontend ./app/frontend
+COPY config/vite.json ./config/vite.json
+COPY vite.config.ts tsconfig.json ./
+RUN npm run build
+
 FROM base AS build
 
 # Install packages needed to build gems
@@ -46,16 +55,11 @@ RUN bundle install && \
 
 # Copy application code
 COPY . .
+COPY --from=frontend /rails/public/vite ./public/vite
 
 # Precompile bootsnap code for faster boot times.
 # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
-
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-
-
 
 # Final stage for app image
 FROM base

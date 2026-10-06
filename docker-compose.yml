@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: mconf_biblioteca
+      POSTGRES_PASSWORD: mconf_biblioteca
+      POSTGRES_DB: mconf_biblioteca_development
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  web:
+    build: .
+    command: ./bin/rails server -b 0.0.0.0 -p 3000
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
+      POSTGRES_HOST: db
+      POSTGRES_USER: mconf_biblioteca
+      POSTGRES_PASSWORD: mconf_biblioteca
+      POSTGRES_PORT: 5432
+      # Evita que um PID persistido no bind mount do projeto bloqueie o Puma.
+      PIDFILE: /tmp/puma.pid
+    depends_on:
+      - db
+  vite:
+    image: node:22-slim
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    volumes:
+      - .:/app
+    ports:
+      - "3036:3036"
+
+volumes:
+  postgres_data:
+    name: mconf_biblioteca_current_data

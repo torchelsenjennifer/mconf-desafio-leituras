@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+# If running the Rails server then create or migrate the database.
+if [ "$1" = "./bin/rails" ] && [ "$2" = "server" ]; then
+  # O diretório do projeto é montado como volume no desenvolvimento. Se o
+  # container parar inesperadamente, o PID antigo não pode impedir o próximo boot.
+  rm -f tmp/pids/server.pid
   ./bin/rails db:prepare
 fi
 

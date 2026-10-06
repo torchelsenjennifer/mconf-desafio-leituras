@@ -29,7 +29,9 @@
 !/tmp/storage/.keep
 
 /public/assets
+/public/vite
+/node_modules
+/vendor/bundle
 
 # Ignore key files for decrypting credentials and more.
 /config/*.key
-

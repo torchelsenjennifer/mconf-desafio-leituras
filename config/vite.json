@@ -1,0 +1,6 @@
+{
+  "all": { "sourceCodeDir": "app/frontend", "entrypointsDir": "entrypoints", "publicOutputDir": "vite", "host": "0.0.0.0" },
+  "development": { "autoBuild": true, "host": "vite", "port": 3036 },
+  "test": { "autoBuild": false },
+  "production": { "autoBuild": true }
+}
