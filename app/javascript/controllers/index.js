@@ -1,4 +1,5 @@
-// Import and register all your controllers from the importmap via controllers/**/*_controller
+// Importa e registra os controllers Stimulus encontrados nesta pasta.
 import { application } from "controllers/application"
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
+
 eagerLoadControllersFrom("controllers", application)

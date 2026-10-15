@@ -1,9 +1,11 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# Este arquivo deve garantir a existência dos registros necessários em qualquer
+# ambiente. O código precisa ser idempotente, ou seja, pode ser executado várias
+# vezes sem criar dados duplicados.
 #
-# Example:
+# Execute com bin/rails db:seed ou junto da preparação do banco com db:setup.
 #
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
+# Exemplo:
+#
+#   ["Ação", "Comédia", "Drama", "Terror"].each do |nome_do_genero|
+#     GeneroDeFilme.find_or_create_by!(name: nome_do_genero)
 #   end

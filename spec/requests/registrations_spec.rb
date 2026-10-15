@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "Registrations", type: :request do
-  it "creates an account with name, email and password only" do
+RSpec.describe "Cadastro de usuários", type: :request do
+  it "cria uma conta usando apenas nome, e-mail e senha" do
     expect {
       post user_registration_path, params: {
         user: {

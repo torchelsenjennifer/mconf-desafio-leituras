@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 class ApplicationPolicy
-  attr_reader :user, :record
+  attr_reader :usuario, :registro
 
-  def initialize(user, record)
-    @user = user
-    @record = record
+  # Toda policy recebe o usuário atual e o recurso que será autorizado.
+  def initialize(usuario, registro)
+    @usuario = usuario
+    @registro = registro
   end
 
+  # A classe base nega todas as ações. Cada policy concreta libera somente as
+  # operações que fazem sentido para aquele recurso.
   def index?
     false
   end
@@ -37,17 +40,17 @@ class ApplicationPolicy
   end
 
   class Scope
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
+    def initialize(usuario, escopo)
+      @usuario = usuario
+      @escopo = escopo
     end
 
     def resolve
-      raise NoMethodError, "You must define #resolve in #{self.class}"
+      raise NoMethodError, "Você precisa definir #resolve em #{self.class}"
     end
 
     private
 
-    attr_reader :user, :scope
+    attr_reader :usuario, :escopo
   end
 end

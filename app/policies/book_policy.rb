@@ -1,13 +1,20 @@
 class BookPolicy < ApplicationPolicy
   def create?
-    user.present?
+    usuario.present?
   end
 
   def update?
-    user == record.user
+    proprietario?
   end
 
   def destroy?
-    update?
+    proprietario?
+  end
+
+  private
+
+  # Somente a pessoa que adicionou o livro pode alterá-lo ou removê-lo.
+  def proprietario?
+    usuario.present? && usuario == registro.user
   end
 end

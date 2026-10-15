@@ -1,27 +1,71 @@
 module OpenLibrary
   class Search
-    BASE_URL = "https://openlibrary.org/search.json".freeze
+    URL_BASE = "https://openlibrary.org/search.json".freeze
+    LIMITE_DE_RESULTADOS = 8
+    CAMPOS_SOLICITADOS = %w[
+      key
+      title
+      author_name
+      first_publish_year
+      subject
+      cover_i
+    ].join(",").freeze
 
-    def initialize(query)
-      @query = query.to_s.strip
+    def initialize(consulta)
+      @consulta = consulta.to_s.strip
     end
 
     def call
-      return [] if @query.length < 2
+      return [] if @consulta.length < 2
 
-      response = Faraday.get(BASE_URL, q: @query, fields: "key,title,author_name,first_publish_year,subject,cover_i", limit: 8)
-      return [] unless response.success?
+      resposta = buscar_livros
+      return [] unless resposta.success?
 
-      JSON.parse(response.body).fetch("docs", []).filter_map do |book|
-        year = book["first_publish_year"]
-        next if year.blank?
-
-        { key: book["key"], title: book["title"], author: Array(book["author_name"]).first || "Autor desconhecido",
-          published_year: year, genre: Array(book["subject"]).first,
-          cover_url: book["cover_i"] && "https://covers.openlibrary.org/b/id/#{book["cover_i"]}-M.jpg" }
-      end
+      interpretar_livros(resposta.body)
     rescue Faraday::Error, JSON::ParserError
+      # Falhas da API externa não devem derrubar a aplicação. A interface trata
+      # uma lista vazia mostrando uma mensagem para a pessoa tentar novamente.
       []
+    end
+
+    private
+
+    def buscar_livros
+      Faraday.get(
+        URL_BASE,
+        q: @consulta,
+        fields: CAMPOS_SOLICITADOS,
+        limit: LIMITE_DE_RESULTADOS
+      )
+    end
+
+    def interpretar_livros(corpo_da_resposta)
+      documentos = JSON.parse(corpo_da_resposta).fetch("docs", [])
+      documentos.filter_map { |documento| serializar_livro(documento) }
+    end
+
+    def serializar_livro(documento)
+      ano_de_publicacao = documento["first_publish_year"]
+      return if ano_de_publicacao.blank?
+
+      {
+        key: documento["key"],
+        title: documento["title"],
+        author: primeiro_valor(documento, "author_name") || "Autor desconhecido",
+        published_year: ano_de_publicacao,
+        genre: primeiro_valor(documento, "subject"),
+        cover_url: url_da_capa(documento["cover_i"])
+      }
+    end
+
+    def primeiro_valor(documento, campo)
+      Array(documento[campo]).first
+    end
+
+    def url_da_capa(identificador_da_capa)
+      return unless identificador_da_capa
+
+      "https://covers.openlibrary.org/b/id/#{identificador_da_capa}-M.jpg"
     end
   end
 end

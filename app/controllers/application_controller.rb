@@ -1,19 +1,25 @@
 class ApplicationController < ActionController::Base
+  # Disponibiliza o método authorize e as policies do Pundit nos controllers.
   include Pundit::Authorization
-  # Changes to the importmap will invalidate the etag for HTML responses
+
+  # Alterações no importmap invalidam o ETag das respostas HTML.
   stale_when_importmap_changes
 
-  before_action :configure_permitted_parameters, if: :devise_controller?
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  # O Devise bloqueia parâmetros extras por padrão. Este callback permite que
+  # o campo name seja recebido no cadastro e na edição da conta.
+  before_action :configurar_parametros_permitidos, if: :devise_controller?
+
+  # Centraliza o tratamento de tentativas de editar ou remover livros alheios.
+  rescue_from Pundit::NotAuthorizedError, with: :usuario_nao_autorizado
 
   private
 
-  def configure_permitted_parameters
+  def configurar_parametros_permitidos
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
     devise_parameter_sanitizer.permit(:account_update, keys: [ :name ])
   end
 
-  def user_not_authorized
+  def usuario_nao_autorizado
     redirect_to books_path, alert: "Você não tem permissão para executar esta ação."
   end
 end

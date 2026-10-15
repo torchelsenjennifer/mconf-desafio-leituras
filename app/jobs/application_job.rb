@@ -1,7 +1,7 @@
 class ApplicationJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
+  # Repete automaticamente tarefas que encontrarem um deadlock no banco.
   # retry_on ActiveRecord::Deadlocked
 
-  # Most jobs are safe to ignore if the underlying records are no longer available
+  # Descarta tarefas cujo registro relacionado não existe mais.
   # discard_on ActiveJob::DeserializationError
 end
