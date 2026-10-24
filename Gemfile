@@ -68,7 +68,7 @@ end
 gem "inertia_rails", "~> 3.22"
 gem "devise", "~> 5.0"
 gem "pundit", "~> 2.5"
-gem "faraday", "~> 2.14"
+gem "faraday", "~> 2.15"
 
 gem "rspec-rails", "~> 8.0", groups: [ :development, :test ]
 gem "factory_bot_rails", "~> 6.5", groups: [ :development, :test ]
