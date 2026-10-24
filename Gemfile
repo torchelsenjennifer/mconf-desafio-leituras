@@ -72,6 +72,6 @@ gem "faraday", "~> 2.14"
 
 gem "rspec-rails", "~> 8.0", groups: [ :development, :test ]
 gem "factory_bot_rails", "~> 6.5", groups: [ :development, :test ]
-gem "webmock", "~> 3.26", groups: [ :development, :test ]
+gem "webmock", "~> 3.34", groups: [ :development, :test ]
 
 gem "vite_rails", "~> 3.11"
